@@ -58,7 +58,7 @@
     }, timeout );
   }
 
-  document.onreadystatechange = function() {
+  document.addEventListener( 'readystatechange', function() {
     if ( 'interactive' === document.readyState ) {
 
       if ( ! window.H5P || ! window.H5P.externalDispatcher ) {
@@ -70,5 +70,6 @@
         h5pResizePulse();
       });
     }
-  };
+  });
+
 }() );
