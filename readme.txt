@@ -4,7 +4,7 @@ Tags: h5p, tab, accordion, lightbox
 Donate link: https://www.rainforestcoalition.org/donations/
 Requires at least: 4.0
 Tested up to: 5.4
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: MIT
 License URI: https://github.com/otacke/wp-h5p-resize-pulse/blob/master/LICENSE
 
@@ -28,9 +28,15 @@ Install H5P Resize Pulse from the Wordpress Plugin directory or upload it manual
 None so far.
 
 == Changelog ==
+= 0.1.1 =
+Fixed readystatechange listener to avoid conflicts with other plugins
+
 = 0.1 =
 Initial release
 
 == Upgrade Notice ==
+= 0.1.1 =
+Upgrade if other plugins that change H5P behavior run into trouble, in particular the H5P.MathDisplay library
+
 = 0.1 =
 Initial release

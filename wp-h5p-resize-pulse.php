@@ -6,7 +6,7 @@
  * Text Domain: H5PRESIZEPULSE
  * Domain Path: /languages
  * Description: Provides you with a potential workaround for H5P content that won't show in tabs, accordions, lightboxes, etc.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Oliver Tacke
  * Author URI: https://www.olivertacke.de/labs
  * License: MIT
@@ -18,7 +18,7 @@ namespace H5PRESIZEPULSE;
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 if ( ! defined( 'H5PRESIZEPULSE_VERSION' ) ) {
-	define( 'H5PRESIZEPULSE_VERSION', '0.1.0' );
+	define( 'H5PRESIZEPULSE_VERSION', '0.1.1' );
 }
 
 // Load classes
