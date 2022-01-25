@@ -3,7 +3,7 @@ Contributors: otacke
 Tags: h5p, tab, accordion, lightbox
 Donate link: https://www.rainforestcoalition.org/donations/
 Requires at least: 4.0
-Tested up to: 5.7
+Tested up to: 5.9
 Stable tag: 0.1.1
 License: MIT
 License URI: https://github.com/otacke/wp-h5p-resize-pulse/blob/master/LICENSE
