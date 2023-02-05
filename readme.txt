@@ -1,7 +1,7 @@
 === SNORDIAN's H5P Resize Pulse ===
 Contributors: otacke
 Tags: h5p, tab, accordion, lightbox
-Donate link: https://www.rainforestcoalition.org/donations/
+Donate link: https://www.rainforestcoalition.org/donate
 Requires at least: 4.0
 Tested up to: 6.1
 Stable tag: 0.1.2
@@ -11,7 +11,7 @@ License URI: https://github.com/otacke/wp-h5p-resize-pulse/blob/master/LICENSE
 Provides you with a potential workaround for H5P content that won't show in tabs, accordions, lightboxes, etc.
 
 == Description ==
-PLEASE NOTE: I gave some of my free time to create this plugin. Using it and its source code is absolutely free. I don't want any money from you. However, if you like this plugin, I kindly ask you to make a one-time donation of 2.50 EUR to the Rainforest Coalition (https://www.rainforestcoalition.org/donations/) -- or more if you can afford to.
+PLEASE NOTE: I gave some of my free time to create this plugin. Using it and its source code is absolutely free. I don't want any money from you. However, if you like this plugin, I kindly ask you to make a one-time donation of 2.50 EUR to the Rainforest Coalition (https://www.rainforestcoalition.org/donate) -- or more if you can afford to.
 
 H5P is a versatile plugin to add interactive content to your website. You may try to run it inside some fields that are created by other plugins, e.g. inside tabs, accordions, lightboxes, etc. And with some of them it seems that H5P doesn't work although it is, but the content is set to a height of 0 pixels. That problem is described at https://h5p.org/manipulating-h5p-with-javascript.
 
