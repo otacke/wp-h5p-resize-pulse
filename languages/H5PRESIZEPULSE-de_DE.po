@@ -1,17 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: H5P Resize Pulse\n"
-"POT-Creation-Date: 2020-05-18 01:38+0200\n"
-"PO-Revision-Date: 2020-05-18 01:40+0200\n"
+"POT-Creation-Date: 2023-02-05 14:42+0100\n"
+"PO-Revision-Date: 2023-02-05 14:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: class-options.php\n"
@@ -22,22 +22,68 @@ msgid "General"
 msgstr "Allgemein"
 
 #: class-options.php:127
+msgid "Trigger mode"
+msgstr "Trigger-Modus"
+
+#: class-options.php:135
 msgid "Time interval"
 msgstr "Zeitinterval"
 
-#: class-options.php:190
-msgid "Time interval to trigger H5P resizing in milliseconds."
-msgstr ""
-"Zeitintervall in ms, in dem H5P zum Aktualisieren der Größe angeregt wird."
+#: class-options.php:143
+msgid "Trigger selector"
+msgstr "Trigger-\"Selektor\""
 
-#: class-options.php:194
+#: class-options.php:211
+msgid "Interval"
+msgstr "Zeitinterval"
+
+#: class-options.php:212
+msgid "CSS selector(s)"
+msgstr "CSS-Selektor(en)"
+
+#: class-options.php:216
 msgid ""
-"The smaller this value, the quicker H5P content will render, but the more "
-"likely it is to stall the user's browser. Choose wisely!"
+"Select whether you want to use an automated resize pulse in regular "
+"intervals (may lower performance and break some H5P content types) or to use "
+"CSS selectors to use the specific trigger elements (should not impact "
+"performance and have no side effects, but selectors cannot be specified "
+"automatically)."
 msgstr ""
-"Je kleiner der Wert ist, desto schneller wird H5P-Inhalt dargestellt, "
-"aber umso wahrscheinlicher wird es, den Browser der Nutzer:innen "
-"lahmzulegen. Wähle mit Bedacht!"
+"Wähle, ob die in regelmäßigen Abständen einen \"Resize\"-Impuls senden "
+"möchtest (kann die Leistung beeinflussen, und einige H5P-Inhalte werden dann "
+"nicht mehr funktionieren), oder ob du einen CSS-Selektor für die relevanten "
+"Trigger-Elemente nutzen willst (beeinflusst die Leistung nicht und sollte "
+"keine Nebeneffekte haben, aber Selektoren können nicht automatisch ermittelt "
+"werden)."
+
+#: class-options.php:296
+msgid ""
+"Time interval to trigger H5P resizing in milliseconds. The smaller this "
+"value, the quicker H5P content will render, but the more likely it is to "
+"stall the user's browser. Choose wisely!"
+msgstr ""
+"Zeitinterval zum Triggern von H5P in Millisekunden. Je kleiner der Wert ist, "
+"desto schneller wird H5P-Inhalt dargestellt, aber umso wahrscheinlicher wird "
+"es, den Browser der Nutzer:innen lahmzulegen. Wähle mit Bedacht!"
+
+#: class-options.php:320
+msgid ""
+"You need to determine some feasible <a href=\"https://www.w3schools.com/css/"
+"css_selectors.asp\" target=\"_blank\">CSS selector(s)</a> for page elements "
+"that need to trigger a resize, e.g. a button that you click on to switch "
+"between tabs. The value required here will depend on what plugin you are "
+"using, so there is no way to set a default."
+msgstr ""
+"Du musst einen oder mehrere passende <a href=\"https://www.w3schools.com/css/"
+"css_selectors.asp\" target=\"_blank\">CSS-Selektor(en)</a> für Elemente auf "
+"der Seite bestimmen, die eine Größenänderung bei H5P-Inhalten auslösen soll. "
+"Das kann beispielsweise ein Button sein, den du klickst, um zwischen Tabs zu "
+"wechseln. Der hier benötigte Wert hängt vom jeweiligen Plugin ab, das du "
+"nutzt, daher kann hier kein Vorgabewert gesetzt werden."
+
+#~ msgid "Time interval to trigger H5P resizing in milliseconds."
+#~ msgstr ""
+#~ "Zeitintervall in ms, in dem H5P zum Aktualisieren der Größe angeregt wird."
 
 #~ msgid "Timeout"
 #~ msgstr "Interval"
