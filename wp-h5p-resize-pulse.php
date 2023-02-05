@@ -171,7 +171,14 @@ function initialize_resize_pulse() {
 	wp_enqueue_script( 'H5PRESIZEPULSE', plugins_url( '/js/h5p-resize-pulse.js', __FILE__ ), array(), H5PRESIZEPULSE_VERSION );
 
 	// Pass variables to JavaScript
-	wp_localize_script( 'H5PRESIZEPULSE', 'timeout', array( Options::get_timeout() ) );
+	wp_localize_script(
+		'H5PRESIZEPULSE',
+		'h5pResizePulseParameters', array(
+			'mode' => Options::get_trigger_mode(),
+			'timeout' => Options::get_timeout(),
+			'selector' => Options::get_trigger_selector()
+		)
+	);
 }
 
 /**

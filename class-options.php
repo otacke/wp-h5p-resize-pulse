@@ -123,9 +123,25 @@ class Options {
 		);
 
 		add_settings_field(
+			'trigger-mode',
+			__( 'Trigger mode', 'h5presizepulse' ),
+			array( $this, 'trigger_mode_callback' ),
+			'h5presizepulse-admin',
+			'general_settings'
+		);
+
+		add_settings_field(
 			'timeout',
 			__( 'Time interval', 'h5presizepulse' ),
 			array( $this, 'timeout_callback' ),
+			'h5presizepulse-admin',
+			'general_settings'
+		);
+
+		add_settings_field(
+			'trigger-selector',
+			__( 'Trigger selector', 'h5presizepulse' ),
+			array( $this, 'trigger_selector_callback' ),
 			'h5presizepulse-admin',
 			'general_settings'
 		);
@@ -140,6 +156,13 @@ class Options {
 	 */
 	public function sanitize( $input ) {
 		$new_input = array();
+
+		if ( ! isset( $input['trigger-mode'] ) ) {
+			$new_input['trigger-mode'] = 'interval';
+		}
+		else {
+			$new_input['trigger-mode'] = $input['trigger-mode'];
+		}
 
 		if ( isset( $input['timeout'] ) ) {
 
@@ -159,6 +182,8 @@ class Options {
 			}
 		}
 
+		$new_input['trigger-selector'] = $input['trigger-selector'];
+
 		return $new_input;
 	}
 
@@ -169,6 +194,86 @@ class Options {
 	 */
 	public function print_general_section_info() {
 	}
+
+	/**
+	 * Get trigger mode option.
+	 *
+	 * @since 0.1.2
+	 */
+	public function trigger_mode_callback() {
+		// I don't like this mixing of HTML and PHP, but it seems to be WordPress custom
+
+		?>
+		<select
+			name="h5presizepulse_option[trigger-mode]"
+			id="trigger-mode"
+		>
+		  <option value="interval"<?php echo( 'interval' === self::get_trigger_mode() ? ' selected' : '' ) ?>><?php echo __( 'Interval', 'h5presizepulse' ) ?></option>
+			<option value="selector"<?php echo( 'selector' === self::get_trigger_mode() ? ' selected' : '' ) ?>><?php echo __( 'CSS selector(s)', 'h5presizepulse' ) ?></option>
+		</select>
+		<p class="description">
+		<?php
+			echo __( 'Select whether you want to use an automated resize pulse in regular intervals (may lower performance and break some H5P content types) or to use CSS selectors to use the specific trigger elements (should not impact performance and have no side effects, but selectors cannot be specified).', 'h5presizepulse' );
+		?>
+		</p>
+
+		<?php
+		/*
+		 * Adding some simple inline JavaScript. Would love to use ES2020 features,
+		 * but without transpiling, this would still break on too many devices.
+		 */
+		?>
+
+		<script>
+			(() => {
+				const selector = document.querySelector('#trigger-mode');
+				if (!selector) {
+					return;
+				}
+
+				const updateSettingsVisibility = () => {
+					const selected = selector.children[selector.selectedIndex].value;
+
+					let timeInterval = document.querySelector('#timeout');
+					if (timeInterval) {
+						timeInterval = timeInterval.closest('tr');
+					}
+
+					let triggerSelector = document.querySelector('#trigger-selector')
+					if (triggerSelector) {
+						triggerSelector = triggerSelector.closest('tr');
+					}
+
+					if (selected === 'interval') {
+						if (timeInterval) {
+							timeInterval.style.display = '';
+						}
+						if (triggerSelector) {
+							triggerSelector.style.display = 'none';
+						}
+					}
+					else if (selected === 'selector') {
+						if (timeInterval) {
+							timeInterval.style.display = 'none';
+						}
+						if (triggerSelector) {
+							triggerSelector.style.display = '';
+						}
+					}
+				}
+
+				selector.addEventListener('change', () => {
+					updateSettingsVisibility();
+				});
+
+				window.requestAnimationFrame(() => {
+					updateSettingsVisibility();
+				});
+
+			})();
+		</script>
+		<?php
+}
 
 	/**
 	 * Get timeout option.
@@ -186,16 +291,47 @@ class Options {
 			id="timeout"
 			value="<?php echo self::get_timeout(); ?>"
 		/>
-		<?php
-			echo __( 'Time interval to trigger H5P resizing in milliseconds.', 'h5presizepulse' );
-		?>
 		<p class="description">
 		<?php
-			echo __( 'The smaller this value, the quicker H5P content will render, but the more likely it is to stall the user\'s browser. Choose wisely!', 'h5presizepulse' );
+			echo __( 'Time interval to trigger H5P resizing in milliseconds. The smaller this value, the quicker H5P content will render, but the more likely it is to stall the user\'s browser. Choose wisely!', 'h5presizepulse' );
 		?>
 		</p>
 		</label>
 		<?php
+	}
+
+	/**
+	 * Get trigger selector option.
+	 *
+	 * @since 0.1.2
+	 */
+	public function trigger_selector_callback() {
+			// I don't like this mixing of HTML and PHP, but it seems to be WordPress custom
+			?>
+			<label for="trigger-selector">
+			<input
+				type="text"
+				name="h5presizepulse_option[trigger-selector]"
+				id="trigger-selector"
+				value="<?php echo self::get_trigger_selector(); ?>"
+			/>
+			<p class="description">
+			<?php
+				echo __( 'You need to determine some feasible <a href="https://www.w3schools.com/css/css_selectors.asp" target="_blank">CSS selector(s)</a> for page elements that need to trigger a resize, e.g. a button that you click on to switch between tabs. The value required here will depend on what plugin you are using, so there is no way to set a default.', 'h5presizepulse' );
+			?>
+			</p>
+			</label>
+			<?php
+	}
+
+	/**
+	 * Get trigger mode value.
+	 *
+	 * @since 0.1.2
+	 * @return string Trigger mode value.
+	 */
+	public static function get_trigger_mode() {
+		return self::$options['trigger-mode'];
 	}
 
 	/**
@@ -206,6 +342,16 @@ class Options {
 	 */
 	public static function get_timeout() {
 		return self::$options['timeout'];
+	}
+
+	/**
+	 * Get trigger-selector value.
+	 *
+	 * @since 0.1.2
+	 * @return string Trigger-selector value.
+	 */
+	public static function get_trigger_selector() {
+		return self::$options['trigger-selector'];
 	}
 
 	/**
