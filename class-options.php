@@ -213,7 +213,7 @@ class Options {
 		</select>
 		<p class="description">
 		<?php
-			echo __( 'Select whether you want to use an automated resize pulse in regular intervals (may lower performance and break some H5P content types) or to use CSS selectors to use the specific trigger elements (should not impact performance and have no side effects, but selectors cannot be specified).', 'h5presizepulse' );
+			echo __( 'Select whether you want to use an automated resize pulse in regular intervals (may lower performance and break some H5P content types) or to use CSS selectors to use the specific trigger elements (should not impact performance and have no side effects, but selectors cannot be specified automatically).', 'h5presizepulse' );
 		?>
 		</p>
 
