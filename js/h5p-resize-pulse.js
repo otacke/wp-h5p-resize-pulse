@@ -1,33 +1,5 @@
 ( function() {
 
-  /*
-   * Polyfill for IE11, doesn't feature new Event()
-   * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-   */
-  if ( 'function' === typeof window.CustomEvent ) {
-    return false;
-  }
-
-  /**
-   * Create custom event.
-   *
-   * @param {string} event Event handler.
-   * @param {object} params Parameters.
-   * @return {Event} Event.
-   */
-  function CustomEvent( event, params ) {
-    var evt;
-    params = params || { bubbles: false, cancelable: false, detail: null };
-    evt = document.createEvent( 'CustomEvent' );
-    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-    return evt;
-  }
-
-  window.CustomEvent = CustomEvent;
-}() );
-
-( function() {
-
   // Default timeout in ms
   var timeoutDefault = 500;
 
