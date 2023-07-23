@@ -331,7 +331,9 @@ class Options {
 	 * @return string Trigger mode value.
 	 */
 	public static function get_trigger_mode() {
-		return self::$options['trigger-mode'];
+		return ( isset( self::$options['trigger-mode'] ) ) ?
+		  self::$options['trigger-mode'] :
+			'';
 	}
 
 	/**
@@ -341,7 +343,9 @@ class Options {
 	 * @return string Timeout value.
 	 */
 	public static function get_timeout() {
-		return self::$options['timeout'];
+		return ( isset( self::$options['timeout'] ) ) ?
+		  self::$options['timeout'] :
+			'500';
 	}
 
 	/**
@@ -351,7 +355,9 @@ class Options {
 	 * @return string Trigger-selector value.
 	 */
 	public static function get_trigger_selector() {
-		return self::$options['trigger-selector'];
+		return ( isset( self::$options['trigger-selector'] ) ) ?
+			self::$options['trigger-selector'] :
+			'';
 	}
 
 	/**
