@@ -7,7 +7,6 @@
  * Author: Oliver Tacke
  * Author URI: https://www.olivertacke.de/labs
  * License: MIT
- * License URI:
  * Text Domain: H5PRESIZEPULSE
  * Domain Path: /languages
  */
