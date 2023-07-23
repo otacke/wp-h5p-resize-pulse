@@ -3,7 +3,7 @@
  * Plugin Name: SNORDIAN's H5P Resize Pulse
  * Plugin URI: https://github.com/otacke/wp-h5p-resize-pulse
  * Description: Provides you with a potential workaround for H5P content that won't show in tabs, accordions, lightboxes, etc.
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: Oliver Tacke
  * Author URI: https://www.olivertacke.de/labs
  * License: MIT
