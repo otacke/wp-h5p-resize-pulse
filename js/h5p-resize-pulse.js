@@ -18,8 +18,6 @@
    * Trigger a resize event on the window that H5P core will recognize.
    */
   const triggerResize = () => {
-    console.log('DISPATCH');
-
     window.dispatchEvent(new Event('resize'));
   };
 
