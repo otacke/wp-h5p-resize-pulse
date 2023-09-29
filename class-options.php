@@ -158,7 +158,7 @@ class Options {
 		$new_input = array();
 
 		if ( ! isset( $input['trigger-mode'] ) ) {
-			$new_input['trigger-mode'] = 'interval';
+			$new_input['trigger-mode'] = 'observer';
 		}
 		else {
 			$new_input['trigger-mode'] = $input['trigger-mode'];
@@ -208,12 +208,13 @@ class Options {
 			name="h5presizepulse_option[trigger-mode]"
 			id="trigger-mode"
 		>
+		  <option value="observer"<?php echo( 'observer' === self::get_trigger_mode() ? ' selected' : '' ) ?>><?php echo __( 'Observer', 'h5presizepulse' ) ?></option>
 		  <option value="interval"<?php echo( 'interval' === self::get_trigger_mode() ? ' selected' : '' ) ?>><?php echo __( 'Interval', 'h5presizepulse' ) ?></option>
 			<option value="selector"<?php echo( 'selector' === self::get_trigger_mode() ? ' selected' : '' ) ?>><?php echo __( 'CSS selector(s)', 'h5presizepulse' ) ?></option>
 		</select>
 		<p class="description">
 		<?php
-			echo __( 'Select whether you want to use an automated resize pulse in regular intervals (may lower performance and break some H5P content types) or to use CSS selectors to use the specific trigger elements (should not impact performance and have no side effects, but selectors cannot be specified automatically).', 'h5presizepulse' );
+			echo __( 'Select if you want to use a ResizeObserver (safe, but requires some ressources), or if you want to use an automated resize pulse in regular intervals (may lower performance and break some H5P content types, rather deprecated), or to use CSS selectors to use the specific trigger elements (should not impact performance and have no side effects, but selectors cannot be specified automatically).', 'h5presizepulse' );
 		?>
 		</p>
 
@@ -258,6 +259,14 @@ class Options {
 						}
 						if (triggerSelector) {
 							triggerSelector.style.display = '';
+						}
+					}
+					else if (selected === 'observer') {
+						if (timeInterval) {
+							timeInterval.style.display = 'none';
+						}
+						if (triggerSelector) {
+							triggerSelector.style.display = 'none';
 						}
 					}
 				}
