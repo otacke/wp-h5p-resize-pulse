@@ -9,6 +9,10 @@ H5P is a versatile plugin to add interactive content to your website. You may tr
 
 The best solution would be to modify the plugin that's including tabs, etc. to your WordPress site, but that's not always possible. In some cases, this plugin may be a feasible workaround at least.
 
+In "observer" mode, it will try to add a so called ResizeObserver to the container that holds the iframe
+with H5P content. That observer will send a resize pulse whenever the container changes in size, e.g. when
+it becomes visible. This should be a safe option just taking some extra resources.
+
 In "interval" mode, it will trigger H5P to resize in regular intervals which should let it be displayed in many cases. However, if they appear too frequent, they may cause the browser to stall. Choose the time interval wisely! Also, some H5P content types may
 break that way. The only way around this is then the "selector" mode.
 
