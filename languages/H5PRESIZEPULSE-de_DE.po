@@ -34,6 +34,10 @@ msgid "Trigger selector"
 msgstr "Trigger-\"Selektor\""
 
 #: class-options.php:211
+msgid "Observer"
+msgstr "Observer"
+
+#: class-options.php:212
 msgid "Interval"
 msgstr "Zeitinterval"
 
@@ -41,22 +45,17 @@ msgstr "Zeitinterval"
 msgid "CSS selector(s)"
 msgstr "CSS-Selektor(en)"
 
-#: class-options.php:216
-msgid ""
-"Select whether you want to use an automated resize pulse in regular "
-"intervals (may lower performance and break some H5P content types) or to use "
-"CSS selectors to use the specific trigger elements (should not impact "
-"performance and have no side effects, but selectors cannot be specified "
-"automatically)."
+#: class-options.php:217
+msgid "Select if you want to use a ResizeObserver (safe, but requires some ressources), or if you want to use an automated resize pulse in regular intervals (may lower performance and break some H5P content types, rather deprecated), or to use CSS selectors to use the specific trigger elements (should not impact performance and have no side effects, but selectors cannot be specified automatically)."
 msgstr ""
-"Wähle, ob die in regelmäßigen Abständen einen \"Resize\"-Impuls senden "
+"Wähle, ob du einen ResizeObserver nutzen möchtest (sicher, aber erfordert einige Ressourcen), oder ob du in regelmäßigen Abständen einen \"Resize\"-Impuls senden "
 "möchtest (kann die Leistung beeinflussen, und einige H5P-Inhalte werden dann "
 "nicht mehr funktionieren), oder ob du einen CSS-Selektor für die relevanten "
 "Trigger-Elemente nutzen willst (beeinflusst die Leistung nicht und sollte "
 "keine Nebeneffekte haben, aber Selektoren können nicht automatisch ermittelt "
 "werden)."
 
-#: class-options.php:296
+#: class-options.php:305
 msgid ""
 "Time interval to trigger H5P resizing in milliseconds. The smaller this "
 "value, the quicker H5P content will render, but the more likely it is to "
@@ -66,7 +65,7 @@ msgstr ""
 "desto schneller wird H5P-Inhalt dargestellt, aber umso wahrscheinlicher wird "
 "es, den Browser der Nutzer:innen lahmzulegen. Wähle mit Bedacht!"
 
-#: class-options.php:320
+#: class-options.php:329
 msgid ""
 "You need to determine some feasible <a href=\"https://www.w3schools.com/css/"
 "css_selectors.asp\" target=\"_blank\">CSS selector(s)</a> for page elements "
