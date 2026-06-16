@@ -48,7 +48,9 @@ class Options {
 		update_option(
 			self::$option_slug,
 			array(
-				'timeout' => self::TIMEOUT_DEFAULT,
+				'timeout'             => self::TIMEOUT_DEFAULT,
+				'timeout-embed'       => self::TIMEOUT_DEFAULT,
+				'embed-pulse-active'  => false,
 			)
 		);
 	}
@@ -117,7 +119,7 @@ class Options {
 
 		add_settings_section(
 			'general_settings',
-			__( 'General', 'h5presizepulse' ),
+			__( 'Regular Content', 'h5presizepulse'),
 			array( $this, 'print_general_section_info' ),
 			'h5presizepulse-admin'
 		);
@@ -144,6 +146,29 @@ class Options {
 			array( $this, 'trigger_selector_callback' ),
 			'h5presizepulse-admin',
 			'general_settings'
+		);
+
+		add_settings_section(
+			'embed_settings',
+			__( 'Embedded Content', 'h5presizepulse' ),
+			array( $this, 'print_embed_section_info' ),
+			'h5presizepulse-admin'
+		);
+
+		add_settings_field(
+			'embed-pulse-active',
+			__( 'Activate interval pulse for embedded content', 'h5presizepulse'),
+			array( $this, 'embed_pulse_active_callback' ),
+			'h5presizepulse-admin',
+			'embed_settings'
+		);
+
+		add_settings_field(
+			'timeout-embed',
+			__( 'Time interval for embedded content', 'h5presizepulse'),
+			array( $this, 'timeout_embed_callback' ),
+			'h5presizepulse-admin',
+			'embed_settings'
 		);
 	}
 
@@ -182,6 +207,26 @@ class Options {
 			}
 		}
 
+		$new_input['embed-pulse-active'] = isset( $input['embed-pulse-active'] ) ? '1' : '0';
+
+		if ( isset($input['timeout-embed']) ) {
+
+			// Parse integer value
+			if (
+				'string' === gettype($input['timeout-embed']) ||
+				'integer' === gettype($input['timeout-embed'])
+			) {
+				$new_input['timeout-embed'] = intval($input['timeout-embed']);
+			} else {
+				$new_input['timeout-embed'] = self::TIMEOUT_DEFAULT;
+			}
+
+			// Sanitize for minimum value
+			if ( $new_input['timeout-embed'] < self::TIMEOUT_MIN ) {
+				$new_input['timeout-embed'] = self::TIMEOUT_MIN;
+			}
+		}
+
 		$new_input['trigger-selector'] = $input['trigger-selector'];
 
 		return $new_input;
@@ -193,6 +238,16 @@ class Options {
 	 * @since 0.1.0
 	 */
 	public function print_general_section_info() {
+		echo __( 'Content that is included in posts and pages with a shortcode', 'h5presizepulse' );
+	}
+
+	/**
+	 * Print section text for embed settings.
+	 *
+	 * @since 0.1.0
+	 */
+	public function print_embed_section_info() {
+		echo __( 'Content that you host here, but that is embedded elsewhere', 'h5presizepulse' );
 	}
 
 	/**
@@ -310,6 +365,82 @@ class Options {
 	}
 
 	/**
+	 * Embed pulse active option.
+	 *
+	 * @since 0.1.0
+	 */
+	public function embed_pulse_active_callback() {
+		// I don't like this mixing of HTML and PHP, but it seems to be WordPress custom
+		?>
+		<label for="embed-pulse-active">
+		<input
+			type="checkbox"
+			name="h5presizepulse_option[embed-pulse-active]"
+			id="embed-pulse-active"
+			value="1"
+			<?php checked( '1', self::get_embed_pulse_active() ); ?>
+		/>
+		</label>
+
+		<script>
+			(() => {
+				const checkbox = document.querySelector('#embed-pulse-active');
+				if (!checkbox) {
+					return;
+				}
+
+				const updateSettingsVisibility = () => {
+					let timeIntervalEmbed = document.querySelector('#timeout-embed');
+					if (timeIntervalEmbed) {
+						timeIntervalEmbed = timeIntervalEmbed.closest('tr');
+					}
+					if (timeIntervalEmbed) {
+						timeIntervalEmbed.style.display = checkbox.checked ? '' : 'none';
+					}
+				};
+
+				checkbox.addEventListener('change', () => {
+					updateSettingsVisibility();
+				});
+
+				window.requestAnimationFrame(() => {
+					updateSettingsVisibility();
+				});
+			})();
+		</script>
+		<?php
+	}
+
+	/**
+	 * Get timeout embed option.
+	 *
+	 * @since 0.1.0
+	 */
+	public function timeout_embed_callback()
+	{
+		// I don't like this mixing of HTML and PHP, but it seems to be WordPress custom
+		?>
+		<label for="timeout-embed">
+		<input
+			type="number"
+			min="<?php echo self::TIMEOUT_MIN; ?>"
+			name="h5presizepulse_option[timeout-embed]"
+			id="timeout-embed"
+			value="<?php echo self::get_timeout_embed(); ?>"
+		/>
+		<p class="description">
+		<?php
+			echo __(
+				'Time interval to trigger H5P resizing in milliseconds. The smaller this value, the quicker H5P content will render, but the more likely it is to stall the user\'s browser. Choose wisely!',
+				'h5presizepulse'
+			);
+		?>
+		</p>
+		</label>
+		<?php
+	}
+
+	/**
 	 * Get trigger selector option.
 	 *
 	 * @since 0.1.2
@@ -355,6 +486,32 @@ class Options {
 		return ( isset( self::$options['timeout'] ) ) ?
 		  self::$options['timeout'] :
 			'500';
+	}
+
+	/**
+	 * Get embed-pulse-active value.
+	 *
+	 * @since 0.1.0
+	 * @return string Embed-pulse-active value.
+	 */
+	public static function get_embed_pulse_active() {
+		return ( isset( self::$options['embed-pulse-active'] ) ) ?
+			self::$options['embed-pulse-active'] :
+			'0';
+	}
+
+	/**
+	 * Get timeout-embed value.
+	 *
+	 * @since 0.1.0
+	 * @return string Timeout-embed value.
+	 */
+	public static function get_timeout_embed()
+	{
+		if ( isset(self::$options['timeout-embed']) ) {
+			return self::$options['timeout-embed'];
+		}
+		return '500';
 	}
 
 	/**

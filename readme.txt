@@ -3,8 +3,8 @@ Contributors: otacke
 Tags: h5p, tab, accordion, lightbox
 Donate link: https://www.rainforestcoalition.org/donate
 Requires at least: 4.0
-Tested up to: 6.6
-Stable tag: 0.1.5
+Tested up to: 7.0
+Stable tag: 0.1.6
 License: MIT
 License URI: https://github.com/otacke/wp-h5p-resize-pulse/blob/master/LICENSE
 
@@ -34,6 +34,9 @@ Install H5P Resize Pulse from the Wordpress Plugin directory or upload it manual
 None so far.
 
 == Changelog ==
+= 0.1.6 =
+Added support for embedded content (content created on the WordPress site and embedded elsewhere).
+
 = 0.1.4 =
 Fix release version.
 
@@ -51,6 +54,9 @@ Fixed readystatechange listener to avoid conflicts with other plugins
 Initial release
 
 == Upgrade Notice ==
+= 0.1.6 =
+Upgrade if your content is embedded elsewhere and needs resizing.
+
 = 0.1.2 =
 Upgrade if you can determine a feasible CSS selector for triggering elements to avoid performance issues and H5P incompatibilities.
 

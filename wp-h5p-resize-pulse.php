@@ -6,7 +6,7 @@
  * Text Domain: H5PRESIZEPULSE
  * Domain Path: /languages
  * Description: Provides you with a potential workaround for H5P content that won't show in tabs, accordions, lightboxes, etc.
- * Version: 0.1.5
+ * Version: 0.1.6
  * Author: Oliver Tacke
  * Author URI: https://www.olivertacke.de/labs
  * License: MIT
@@ -18,7 +18,7 @@ namespace H5PRESIZEPULSE;
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 if ( ! defined( 'H5PRESIZEPULSE_VERSION' ) ) {
-	define( 'H5PRESIZEPULSE_VERSION', '0.1.5' );
+	define( 'H5PRESIZEPULSE_VERSION', '0.1.6' );
 }
 
 // Load classes
@@ -179,6 +179,18 @@ function initialize_resize_pulse() {
 			'selector' => Options::get_trigger_selector()
 		)
 	);
+
+}
+
+/**
+ * Initialize resize pulse by injecting JavaScript to H5P content context.
+ */
+function initialize_resize_pulse_embed(&$scripts, $libraries, $embed_type) {
+	$scripts[] = (object) array(
+    'path' => plugins_url( '/js/h5p-resize-pulse-embed.js', __FILE__),
+		// Breaks caching, but cannot pass variables otherwise
+    'version' => '?ver=' . H5PRESIZEPULSE_VERSION . '&resizeInterval=' . Options::get_timeout_embed(),
+	);
 }
 
 /**
@@ -202,6 +214,13 @@ add_action( 'plugins_loaded', 'H5PRESIZEPULSE\update' );
 
 // Initialize pulse on post/page
 add_action( 'the_post', 'H5PRESIZEPULSE\initialize_resize_pulse' );
+
+// Initialize pulse on embedded H5P content
+$server_request_uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+$is_h5p_embed = ( false !== strpos( $server_request_uri, 'action=h5p_embed' ) );
+if ($is_h5p_embed && Options::get_embed_pulse_active()) {
+	add_action('h5p_alter_library_scripts', 'H5PRESIZEPULSE\initialize_resize_pulse_embed', 10, 3);
+}
 
 // Initialize plugin settings
 add_action( 'init', 'H5PRESIZEPULSE\initialize_settings' );
