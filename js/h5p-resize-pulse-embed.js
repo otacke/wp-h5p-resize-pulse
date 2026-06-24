@@ -34,7 +34,7 @@
       window.dispatchEvent(new Event('resize'));
     }
     else {
-      window.instances[0]?.trigger('resize');
+      window.H5P.instances?.[0]?.trigger('resize');
     }
   };
 
