@@ -26,10 +26,16 @@
   };
 
   /**
-   * Trigger a resize event on the window that H5P core will recognize.
+   * Trigger a resize event to make H5P resize - fingers crossed.
    */
   const triggerResize = () => {
-    window.dispatchEvent(new Event('resize'));
+    const windowHoldsH5PIFrame = window.parent === window;
+    if (windowHoldsH5PIFrame) {
+      window.dispatchEvent(new Event('resize'));
+    }
+    else {
+      window.instances[0]?.trigger('resize');
+    }
   };
 
   /**
